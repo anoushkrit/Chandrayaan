@@ -61,12 +61,12 @@ public class RoverMovement : MonoBehaviour
     }
 
     // Set the drag and angularDrag properties of the Rigidbody component to reduce the force taking the gravity into consideration
-    public void OnEnable()
-    {
-        if (rb != null)
-        {
-            rb.drag = 1.5f;
-            rb.angularDrag = 1.5f;
-        }
-    }
+    // public void OnEnable()
+    // {
+    //     if (rb != null)
+    //     {
+    //         rb.drag = 1.5f;
+    //         rb.angularDrag = 1.5f;
+    //     }
+    // }
 }
