@@ -7,7 +7,7 @@ public class VikramRoverMovement : MonoBehaviour
     public Rigidbody rb;
     public Transform cam;
     public float speed = 6f;
-    public float turnSmoothTime = 0.1f;
+    public float turnSmoothTime = 2.0f;
     public float turnSmoothVelocity;
     public float shiftMultiplier = 10.0f; // Multiplier for the speed when Shift key is pressed
     void Start()
@@ -28,7 +28,7 @@ public class VikramRoverMovement : MonoBehaviour
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime); // Smoothly rotate the rover
             transform.rotation = Quaternion.Euler(0f, angle, 0f); // Rotate the rover to the target angle
 
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward; // Move the rover in the direction of the target angle
+            Vector3 moveDirection = Quaternion.Euler(0f, angle, 0f) * Vector3.forward; // Move the rover in the direction of the target angle
             float currentSpeed = speed;
             if (shiftPressed) // If Shift key is pressed, increase the speed
             {
