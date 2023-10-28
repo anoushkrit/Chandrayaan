@@ -16,7 +16,11 @@
 
 # Recordings can get excessive in size
 /[Rr]ecordings/
-
+/.tmp.drivedownload
+/.tmp.driveupload
+*desktop.ini
+*desktop.meta.ini
+*desktop.meta
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
