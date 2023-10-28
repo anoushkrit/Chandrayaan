@@ -10,6 +10,9 @@ public class RoverMovement : MonoBehaviour
     // Rigidbody component of the rover
     private Rigidbody rb;
 
+    // Camera component of the scene
+    private Camera mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,15 @@ public class RoverMovement : MonoBehaviour
 
         // Get the Rigidbody component of the rover
         rb = GetComponent<Rigidbody>();
+
+        // Find all the cameras in the scene
+        Camera[] cameras = FindObjectsOfType<Camera>();
+
+        // Assign the camera object to the first camera found
+        if (cameras.Length > 0)
+        {
+            mainCamera = cameras[0];
+        }
 
         // Raycast to detect the ground below the rover
         RaycastHit hit;
@@ -58,6 +70,10 @@ public class RoverMovement : MonoBehaviour
         {
             transform.Rotate(Vector3.up * speed * Time.deltaTime);
         }
+
+        // Move the camera to follow the rover's movement from a 3rd person view
+        mainCamera.transform.position = new Vector3(transform.position.x, transform.position.y + 10.0f, transform.position.z - 10.0f);
+        mainCamera.transform.rotation = Quaternion.Euler(45.0f, 0.0f, 0.0f);
     }
 
     // Set the drag and angularDrag properties of the Rigidbody component to reduce the force taking the gravity into consideration
