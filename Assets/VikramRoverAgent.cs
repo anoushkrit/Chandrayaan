@@ -75,12 +75,12 @@ public class VikramRoverAgent : Agent
         // Reached target
         if (distanceToTarget < 1.42f)
         {
-            SetReward(1.0f);
+            SetReward(10.0f);
             EndEpisode();
         }
 
         // Fell off platform
-        else if (this.transform.localPosition.y < 0)
+        else if (this.transform.localPosition.y < 5)
         {
             SetReward(-100.0f);
             EndEpisode();
