@@ -2,22 +2,22 @@
     "VikramRover": {
         "checkpoints": [
             {
-                "steps": 708,
-                "file_path": "results\\VikramRover1\\VikramRover\\VikramRover-708.onnx",
-                "reward": null,
-                "creation_time": 1698606722.5436103,
+                "steps": 18737,
+                "file_path": "results\\VikramRover1\\VikramRover\\VikramRover-18737.onnx",
+                "reward": -10.0,
+                "creation_time": 1698611526.8482616,
                 "auxillary_file_paths": [
-                    "results\\VikramRover1\\VikramRover\\VikramRover-708.pt"
+                    "results\\VikramRover1\\VikramRover\\VikramRover-18737.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 708,
+            "steps": 18737,
             "file_path": "results\\VikramRover1\\VikramRover.onnx",
-            "reward": null,
-            "creation_time": 1698606722.5436103,
+            "reward": -10.0,
+            "creation_time": 1698611526.8482616,
             "auxillary_file_paths": [
-                "results\\VikramRover1\\VikramRover\\VikramRover-708.pt"
+                "results\\VikramRover1\\VikramRover\\VikramRover-18737.pt"
             ]
         }
     },
