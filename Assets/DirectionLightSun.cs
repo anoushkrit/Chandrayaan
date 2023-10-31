@@ -22,7 +22,7 @@ public class DirectionLightSun : MonoBehaviour
         {
             //(Replace with a reference to the game time)
             TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 24; //Modulus to ensure always between 0-24
+            TimeOfDay %= 240s; //Modulus to ensure always between 0-24
             UpdateLighting(TimeOfDay / 24f);
         }
         else

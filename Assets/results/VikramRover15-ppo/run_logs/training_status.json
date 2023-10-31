@@ -1,0 +1,29 @@
+{
+    "VikramRover": {
+        "checkpoints": [
+            {
+                "steps": 2560,
+                "file_path": "results\\VikramRover15-ppo\\VikramRover\\VikramRover-2560.onnx",
+                "reward": null,
+                "creation_time": 1698735148.9113042,
+                "auxillary_file_paths": [
+                    "results\\VikramRover15-ppo\\VikramRover\\VikramRover-2560.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2560,
+            "file_path": "results\\VikramRover15-ppo\\VikramRover.onnx",
+            "reward": null,
+            "creation_time": 1698735148.9113042,
+            "auxillary_file_paths": [
+                "results\\VikramRover15-ppo\\VikramRover\\VikramRover-2560.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.0.0+cu118"
+    }
+}

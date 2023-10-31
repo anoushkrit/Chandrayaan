@@ -18,7 +18,7 @@ public class VikramRoverAgent : Agent
     public LayerMask WhatIsGround;
     public AnimationCurve animCurve;
     public Light directionalLight;
-
+    public RaycastHit hit_right, hit_left, hit_back, hit_front, hit_down_front, hit_down_back, hit_down_right, hit_down_left, hit;
 
     void Start()
     {
@@ -42,7 +42,7 @@ public class VikramRoverAgent : Agent
 
         }
 
-        Target.localPosition = new Vector3( Random.value*1000.0f - 100.0f, 200.0f, Random.value*1000.0f - 100.0f);
+        Target.localPosition = new Vector3( Random.value*200.0f - 50.0f, 200.0f, Random.value*200.0f - 50.0f);
                                         //     Hopefully the Target is not in a crater and should land on the surface
 
 
@@ -57,8 +57,19 @@ public class VikramRoverAgent : Agent
         // Agent velocity
         sensor.AddObservation(rb.velocity.x);
         sensor.AddObservation(rb.velocity.z);
+        sensor.AddObservation(directionalLight.intensity);
+        sensor.AddObservation(hit_front.distance);
+        sensor.AddObservation(hit_left.distance);
+        sensor.AddObservation(hit_right.distance);
+        sensor.AddObservation(hit_back.distance);
+        sensor.AddObservation(hit_down_front.distance);
+        sensor.AddObservation(hit_down_back.distance);
+        sensor.AddObservation(hit_down_right.distance);
+        sensor.AddObservation(hit_down_left.distance);
+
     }
-    public float forceMultiplier = 2.0f;
+    
+    public float forceMultiplier = 0.2f;
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         // Actions, size = 2
@@ -66,8 +77,7 @@ public class VikramRoverAgent : Agent
         controlSignal.x = actionBuffers.ContinuousActions[0];
         controlSignal.z = actionBuffers.ContinuousActions[1];
         Ray ray;
-
-        raycastDistance = 10.0f;
+        float raycastDistance = 10.0f;
         Vector3 rayForward = transform.TransformDirection(0,0,transform.position.z);
         Vector3 rayLeft = transform.TransformDirection(-transform.position.x,0,0);
         Vector3 rayRight = transform.TransformDirection(transform.position.x,0,0);
@@ -78,56 +88,81 @@ public class VikramRoverAgent : Agent
         Vector3 rayDownRight = transform.TransformDirection(transform.position.x, -transform.position.y, 0);
         Vector3 rayDownLeft = transform.TransformDirection(-transform.position.x, -transform.position.y,0);
 
+        // RaycastHit hit_right, hit_left, hit_back, hit_front, hit_down_front, hit_down_back, hit_down_right, hit_down_left, hit;
 
-
-        RaycastHit hit_right, hit_left, hit_back, hit_front, hit_down_front, hit_down_back, hit_down_right, hit_down_left, hit;
-
-        // if (Physics.Raycast(ray, out hit, )) 
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayForward) * raycastDistance, out hit_front, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayForward) * raycastDistance, out hit_front,100.0f))
         {
             Debug.DrawRay(transform.position, rayForward, Color.green);
-            Debug.Log(hit_front.collider.gameObject.name + "was hit!");
+            // sensor.AddObservation(hit_front.distance);
+            if (hit_front.distance > 10.0f)
+            {
+                AddReward(0.4f);
+            }
+
         }
         else
         {
             Debug.DrawRay(transform.position,  rayForward, Color.red);
+            // sensor.AddObservation(hit_front.distance);
+
             // Debug.Log("Infinity Fall");
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayLeft) * raycastDistance, out hit_left, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayLeft) * raycastDistance, out hit_left,100.0f))
         {
             Debug.DrawRay(transform.position, rayLeft, Color.green);
-            Debug.Log(hit_left.collider.gameObject.name + "was hit!");
+            if (hit_left.distance > 10.0f)
+            {
+                AddReward(0.4f);
+            }
+
+            // sensor.AddObservation(hit_left.distance);
         }
         else
         {
             Debug.DrawRay(transform.position,  rayLeft, Color.red);
             // Debug.Log("Infinity Fall");
+            // sensor.AddObservation(hit_left.distance);
+
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayRight) * raycastDistance, out hit_right, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayRight) * raycastDistance, out hit_right,100.0f))
         {
             Debug.DrawRay(transform.position, rayRight, Color.green);
-            Debug.Log(hit_right.collider.gameObject.name + "was hit!");
+            if (hit_right.distance > 10.0f)
+            {
+                AddReward(0.4f);
+            }
+            // sensor.AddObservation(hit_right.distance);
         }
         else
         {
             Debug.DrawRay(transform.position,  rayRight, Color.red);
+            // sensor.AddObservation(hit_right.distance);
+
             // Debug.Log("Infinity Fall");
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayBack) * raycastDistance, out hit_back, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayBack) * raycastDistance, out hit_back,100.0f))
         {
             Debug.DrawRay(transform.position, rayBack, Color.green);
-            Debug.Log(hit_back.collider.gameObject.name + "was hit!");
+            if (hit_back.distance > 10.0f)
+            {
+                AddReward(0.4f);
+            }
+            // sensor.AddObservation(hit_back.distance);
+
         }
         else
         {
             Debug.DrawRay(transform.position,  rayBack, Color.red);
+            // sensor.AddObservation(hit_back.distance);
+
             // Debug.Log("Infinity Fall");
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownFront) * raycastDistance, out hit_down_front, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownFront) * raycastDistance, out hit_down_front,100.0f))
         {
             Debug.DrawRay(transform.position, rayDownFront, Color.green);
-            Debug.Log(hit_down_front.collider.gameObject.name + "was hit!");
-            if (hit_down_front.distance > 5.0f)
+            // sensor.AddObservation(hit_down_front.distance);
+            
+            if (hit_down_front.distance > 100.0f)
             {
                 AddReward(-0.4f);
             }
@@ -135,13 +170,16 @@ public class VikramRoverAgent : Agent
         else
         {
             Debug.DrawRay(transform.position,  rayDownFront, Color.red);
+            // sensor.AddObservation(hit_down_front.distance);
+
             // Debug.Log("Infinity Fall");
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownBack) * raycastDistance, out hit_down_back, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownBack) * raycastDistance, out hit_down_back,100.0f))
         {
             Debug.DrawRay(transform.position, rayDownBack, Color.green);
-            Debug.Log(hit_down_back.collider.gameObject.name + "was hit!");
-            if (hit_down_back.distance > 5.0f)
+            // sensor.AddObservation(hit_down_back.distance);
+
+            if (hit_down_back.distance > 100.0f)
             {
                 AddReward(-0.4f);
             }
@@ -149,13 +187,16 @@ public class VikramRoverAgent : Agent
         else
         {
             Debug.DrawRay(transform.position,  rayDownBack, Color.red);
+            // sensor.AddObservation(hit_down_back.distance);
+
             // Debug.Log("Infinity Fall");
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownRight) * raycastDistance, out hit_down_right, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownRight) * raycastDistance, out hit_down_right,100.0f))
         {
             Debug.DrawRay(transform.position, rayDownRight, Color.green);
-            Debug.Log(hit_down_right.collider.gameObject.name + "was hit!");
-            if (hit_down_right.distance > 5.0f)
+            // sensor.AddObservation(hit_down_right.distance);
+
+            if (hit_down_right.distance > 100.0f)
             {
                 AddReward(-0.4f);
             }
@@ -163,14 +204,17 @@ public class VikramRoverAgent : Agent
         else
         {
             Debug.DrawRay(transform.position,  rayDownRight, Color.red);
+            // sensor.AddObservation(hit_down_right.distance);
+
             // Debug.Log("Infinity Fall");
         }
-        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownLeft) * raycastDistance, out hit_down_left, 10.0f))
+        if(Physics.Raycast(transform.position, transform.TransformDirection(rayDownLeft) * raycastDistance, out hit_down_left,100.0f))
         {
             Debug.DrawRay(transform.position, rayDownLeft, Color.green);
-            Debug.Log(hit_down_left.collider.gameObject.name + "was hit!");
+            // sensor.AddObservation(hit_down_left.distance);
 
-            if (hit_down_left.distance > 5.0f)
+
+            if (hit_down_left.distance > 100.0f)
             {
                 AddReward(-0.4f);
             }
@@ -178,19 +222,27 @@ public class VikramRoverAgent : Agent
         else
         {
             Debug.DrawRay(transform.position,  rayDownLeft, Color.red);
+            // sensor.AddObservation(hit_down_left.distance);
             // Debug.Log("Infinity Fall");
         }
         
-        if (directionalLight.intensity < 0.1f) // Change the threshold as per your requirement
+        if (rb.velocity != Vector3.zero && directionalLight.intensity > 0.1f)
         {
-            // If the light has dimmed, set the reward to -1
-            AddReward(-1.0f);
-            if (rb.velocity != Vector3.zero)
-            {
-                AddReward(-5.0f);
-            }
+            AddReward(0.1f);
         }
-
+        if (rb.velocity == Vector3.zero && directionalLight.intensity > 0.1f)
+        {
+            AddReward(-0.2f);
+        }
+    
+        if (rb.velocity == Vector3.zero && directionalLight.intensity < 0.1f)// Change the threshold as per your requirement
+        {
+            AddReward(0.2f);
+        }
+        if (rb.velocity != Vector3.zero && directionalLight.intensity < 0.1f)
+        {
+            AddReward(-1.0f);
+        }
         
 
 
@@ -202,28 +254,28 @@ public class VikramRoverAgent : Agent
         // Reached target
         if (this.transform.localPosition.y < 5)
         {
-            AddReward(-10.0f);
+            SetReward(-100.0f);
             EndEpisode();
         }
         if (distanceToTarget < 10.0f)
         {
-            AddReward(50.0f);
-            EndEpisode();
+            AddReward(100.0f);
+
         }
         if (distanceToTarget < 25.0f)
         {
-            AddReward(5.0f);
+            AddReward(50.0f);
         }
 
-        if (distanceToTarget < 50.0f)
-        {
-            AddReward(1.0f);
-        }
+        // if (distanceToTarget < 50.0f)
+        // {
+        //     AddReward(1.0f);
+        // }
 
 
         if (distanceToTarget >400.0f)
         {
-            AddReward(-10.0f);
+            AddReward(-40.0f);
         }
     }
     public override void Heuristic(in ActionBuffers actionsOut)
