@@ -1,0 +1,31 @@
+{
+    "name": "root",
+    "gauges": {
+        "VikramRover.Policy.Entropy.mean": {
+            "value": 1.6627423763275146,
+            "min": 1.4896817207336426,
+            "max": 1.6627423763275146,
+            "count": 2
+        },
+        "VikramRover.Policy.Entropy.sum": {
+            "value": 16654.02734375,
+            "min": 14920.65234375,
+            "max": 16654.02734375,
+            "count": 2
+        },
+        "VikramRover.Step.mean": {
+            "value": 19999.0,
+            "min": 9999.0,
+            "max": 19999.0,
+            "count": 2
+        },
+        "VikramRover.Step.sum": {
+            "value": 19999.0,
+            "min": 9999.0,
+            "max": 19999.0,
+            "count": 2
+        },
+        "VikramRover.Policy.ExtrinsicValueEstimate.mean": {
+            "value": -39.67998123168945,
+            "min": -39.67998123168945,
+            "max": 
